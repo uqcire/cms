@@ -16,8 +16,8 @@
   },
   { name: 'strapi::cors', config: {
       origin: [
-        'https://your-frontend.vercel.app',
-        'https://www.your-domain.com',
+        // 'https://your-frontend.vercel.app',
+        'https://www.dflm.com.au',
       ],
       methods: ['GET','POST','PUT','PATCH','DELETE','HEAD','OPTIONS'],
       headers: ['Content-Type','Authorization','Range'],
