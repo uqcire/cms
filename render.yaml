@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: dflm-cms
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: "1337"
+      - key: DATABASE_CLIENT
+        value: postgres
+      - key: DATABASE_SSL
+        value: "true"
+      - key: DATABASE_SCHEMA
+        value: public
+      - key: DATABASE_POOL_MIN
+        value: "0"
+      - key: DATABASE_POOL_MAX
+        value: "10"
+      - key: SUPABASE_BUCKET
+        value: uploads
+      - key: SUPABASE_DIRECTORY
+        value: ""
+      - key: FLAG_NPS
+        value: "true"
+      - key: FLAG_PROMOTE_EE
+        value: "true"
+    # These will be set in Render dashboard:
+    # - DATABASE_URL
+    # - SUPABASE_URL
+    # - SUPABASE_SERVICE_ROLE_KEY
+    # - APP_KEYS
+    # - API_TOKEN_SALT
+    # - ADMIN_JWT_SECRET
+    # - TRANSFER_TOKEN_SALT
+    # - JWT_SECRET
+    # - ENCRYPTION_KEY
+    # - PUBLIC_URL

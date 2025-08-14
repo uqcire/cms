@@ -14,15 +14,14 @@
       },
     },
   },
-  { name: 'strapi::cors', config: {
-      origin: [
-        // 'https://your-frontend.vercel.app',
-        'https://www.dflm.com.au',
-      ],
-      methods: ['GET','POST','PUT','PATCH','DELETE','HEAD','OPTIONS'],
-      headers: ['Content-Type','Authorization','Range'],
-      keepHeaderOnError: true,
-  } },
+  {
+    name: 'strapi::cors',
+    config: {
+      enabled: true,
+      headers: '*',
+      origin: ['https://dflm.com.au', 'https://*.onrender.com']
+    }
+  },
   'strapi::poweredBy',
   'strapi::logger',
   'strapi::query',
