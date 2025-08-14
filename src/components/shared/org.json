@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_shared_orgs",
+  "info": {
+    "displayName": "Organization",
+    "description": "Organization schema.org component"
+  },
+  "options": {},
+  "attributes": {
+    "orgName": {
+      "type": "string",
+      "required": true
+    },
+    "legalName": {
+      "type": "string"
+    },
+    "parentOrganization": {
+      "type": "string"
+    }
+  }
+} 
