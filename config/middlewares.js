@@ -19,7 +19,7 @@
     config: {
       enabled: true,
       headers: '*',
-      origin: ['http://localhost:3000', 'http://localhost:5173', 'https://dflm.com.au', 'https://*.onrender.com']
+      origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:8801', 'https://dflm.com.au', 'https://*.onrender.com']
     }
   },
   'strapi::poweredBy',
