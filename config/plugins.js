@@ -15,4 +15,9 @@
       jwtSecret: env('JWT_SECRET'),
     },
   },
+  // Suppress upload provider warnings
+  logger: {
+    level: 'warn',
+    requests: false,
+  },
 });
