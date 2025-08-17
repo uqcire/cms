@@ -474,6 +474,33 @@ export interface ApiCertificationCertification
   };
 }
 
+export interface ApiHealthcheckHealthcheck extends Struct.SingleTypeSchema {
+  collectionName: 'healthchecks';
+  info: {
+    displayName: 'Health Check';
+    pluralName: 'healthchecks';
+    singularName: 'healthcheck';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::healthcheck.healthcheck'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
   collectionName: 'industries';
   info: {
@@ -673,6 +700,38 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     summary: Schema.Attribute.Text & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStaticPageStaticPage extends Struct.CollectionTypeSchema {
+  collectionName: 'static_pages';
+  info: {
+    displayName: 'Static Page';
+    pluralName: 'static-pages';
+    singularName: 'static-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Blocks: Schema.Attribute.Component<'shared.blocks', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Hero: Schema.Attribute.Component<'shared.hero', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::static-page.static-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    SEO: Schema.Attribute.Component<'shared.seo', false>;
+    Slug: Schema.Attribute.UID & Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1256,12 +1315,14 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::category.category': ApiCategoryCategory;
       'api::certification.certification': ApiCertificationCertification;
+      'api::healthcheck.healthcheck': ApiHealthcheckHealthcheck;
       'api::industry.industry': ApiIndustryIndustry;
       'api::page.page': ApiPagePage;
       'api::partner.partner': ApiPartnerPartner;
       'api::post.post': ApiPostPost;
       'api::product.product': ApiProductProduct;
       'api::service.service': ApiServiceService;
+      'api::static-page.static-page': ApiStaticPageStaticPage;
       'api::tag.tag': ApiTagTag;
       'api::webhook.webhook': ApiWebhookWebhook;
       'plugin::content-releases.release': PluginContentReleasesRelease;

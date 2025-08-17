@@ -15,6 +15,47 @@ export interface SharedAddress extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedBlocks extends Struct.ComponentSchema {
+  collectionName: 'components_shared_blocks';
+  info: {
+    displayName: 'Blocks';
+  };
+  attributes: {
+    content: Schema.Attribute.Component<'shared.content-block', false>;
+    cta: Schema.Attribute.Component<'shared.cta-block', false>;
+    features: Schema.Attribute.Component<'shared.features-block', false>;
+  };
+}
+
+export interface SharedContentBlock extends Struct.ComponentSchema {
+  collectionName: 'components_shared_content_blocks';
+  info: {
+    displayName: 'Content Block';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    text: Schema.Attribute.RichText;
+    title: Schema.Attribute.String;
+    type: Schema.Attribute.String;
+  };
+}
+
+export interface SharedCtaBlock extends Struct.ComponentSchema {
+  collectionName: 'components_shared_cta_blocks';
+  info: {
+    displayName: 'CTA Block';
+  };
+  attributes: {
+    buttonLink: Schema.Attribute.String;
+    buttonText: Schema.Attribute.String;
+    text: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SharedFeature extends Struct.ComponentSchema {
   collectionName: 'components_shared_features';
   info: {
@@ -25,6 +66,17 @@ export interface SharedFeature extends Struct.ComponentSchema {
     icon: Schema.Attribute.String;
     text: Schema.Attribute.Text & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface SharedFeaturesBlock extends Struct.ComponentSchema {
+  collectionName: 'components_shared_features_blocks';
+  info: {
+    displayName: 'Features Block';
+  };
+  attributes: {
+    features: Schema.Attribute.Component<'shared.feature', true>;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -116,7 +168,11 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'shared.address': SharedAddress;
+      'shared.blocks': SharedBlocks;
+      'shared.content-block': SharedContentBlock;
+      'shared.cta-block': SharedCtaBlock;
       'shared.feature': SharedFeature;
+      'shared.features-block': SharedFeaturesBlock;
       'shared.hero': SharedHero;
       'shared.org': SharedOrg;
       'shared.product-specs': SharedProductSpecs;
