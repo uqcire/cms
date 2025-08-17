@@ -1,55 +1,54 @@
 'use strict';
 
 module.exports = async ({ strapi }) => {
-  // Set up default permissions for public role
-  const publicRole = await strapi
-    .query('plugin::users-permissions.role')
-    .findOne({ where: { type: 'public' } });
+  console.log('🚀 Bootstrap starting...');
 
-  if (publicRole) {
-    // Define content types that should be publicly accessible
-    const contentTypes = [
-      'api::page.page',
-      'api::service.service',
-      'api::product.product',
-      'api::industry.industry',
-      'api::certification.certification',
-      'api::partner.partner',
-      'api::post.post',
-      'api::category.category',
-      'api::tag.tag',
-    ];
-
-    // Set permissions for each content type
-    const permissions = {};
+  // Set up webhook event listeners for content publish/unpublish
+  try {
+    const webhookService = strapi.service('api::webhook.webhook');
     
-    contentTypes.forEach(contentType => {
-      permissions[contentType] = {
-        controllers: {
-          [contentType]: {
-            find: { enabled: true, policy: '' },
-            findOne: { enabled: true, policy: '' },
-          },
-        },
-      };
-    });
+    if (webhookService) {
+      // Define content types for webhook events
+      const webhookContentTypes = [
+        'api::page.page',
+        'api::service.service',
+        'api::product.product',
+        'api::industry.industry',
+        'api::certification.certification',
+        'api::partner.partner',
+        'api::post.post',
+        'api::category.category',
+        'api::tag.tag',
+      ];
 
-    // Update the public role with permissions
-    await strapi
-      .query('plugin::users-permissions.role')
-      .update({
-        where: { id: publicRole.id },
-        data: {
-          ...publicRole,
-          permissions,
+      // Listen for entry publish events
+      strapi.db.lifecycles.subscribe({
+        models: webhookContentTypes,
+        event: 'afterUpdate',
+        async handler(event) {
+          const { result, params } = event;
+          
+          // Check if the entry was published or unpublished
+          const wasPublished = result.publishedAt !== null;
+          const wasUnpublished = params.data.publishedAt === null;
+          
+          if (wasPublished) {
+            await webhookService.onEntryPublish(result);
+          } else if (wasUnpublished) {
+            await webhookService.onEntryUnpublish(result);
+          }
         },
       });
 
-    console.log('✅ Public role permissions configured successfully');
-    
-    // Log the current permissions for debugging
-    console.log('🔍 Current permissions:', JSON.stringify(permissions, null, 2));
-  } else {
-    console.log('❌ Public role not found');
+      console.log('✅ Webhook event listeners configured successfully');
+    } else {
+      console.log('⚠️ Webhook service not found, skipping webhook configuration');
+    }
+  } catch (error) {
+    console.log('⚠️ Could not configure webhooks:', error.message);
   }
+
+  console.log('✅ Bootstrap completed');
+  console.log('💡 Note: You may need to manually set public permissions in the admin panel');
+  console.log('   Go to Settings → Users & Permissions Plugin → Roles → Public');
 }; 

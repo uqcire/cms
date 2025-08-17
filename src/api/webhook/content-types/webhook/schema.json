@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "webhooks",
+  "info": {
+    "singularName": "webhook",
+    "pluralName": "webhooks",
+    "displayName": "Webhook",
+    "description": "Webhook configuration for external integrations"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "url": {
+      "type": "text",
+      "required": true
+    },
+    "events": {
+      "type": "json",
+      "default": ["entry.publish", "entry.unpublish"]
+    },
+    "contentTypes": {
+      "type": "json",
+      "default": []
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "lastTriggered": {
+      "type": "datetime"
+    },
+    "lastStatus": {
+      "type": "string",
+      "default": "pending"
+    }
+  }
+} 

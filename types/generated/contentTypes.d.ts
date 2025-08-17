@@ -706,6 +706,44 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiWebhookWebhook extends Struct.CollectionTypeSchema {
+  collectionName: 'webhooks';
+  info: {
+    description: 'Webhook configuration for external integrations';
+    displayName: 'Webhook';
+    pluralName: 'webhooks';
+    singularName: 'webhook';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    contentTypes: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<[]>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    enabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    events: Schema.Attribute.JSON &
+      Schema.Attribute.DefaultTo<['entry.publish', 'entry.unpublish']>;
+    lastStatus: Schema.Attribute.String & Schema.Attribute.DefaultTo<'pending'>;
+    lastTriggered: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::webhook.webhook'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    url: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1225,6 +1263,7 @@ declare module '@strapi/strapi' {
       'api::product.product': ApiProductProduct;
       'api::service.service': ApiServiceService;
       'api::tag.tag': ApiTagTag;
+      'api::webhook.webhook': ApiWebhookWebhook;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
