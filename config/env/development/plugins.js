@@ -1,4 +1,4 @@
-﻿module.exports = ({ env }) => ({
+module.exports = ({ env }) => ({
   upload: {
     config: {
       provider: 'strapi-provider-upload-supabase',
@@ -15,10 +15,10 @@
       jwtSecret: env('JWT_SECRET'),
     },
   },
-  // Suppress upload provider warnings
+  // Suppress warnings in development
   logger: {
     level: 'error',
     requests: false,
     errors: true,
   },
-});
+}); 

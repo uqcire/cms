@@ -26,39 +26,7 @@ module.exports = async ({ strapi }) => {
     contentTypes.forEach(contentType => {
       permissions[contentType] = {
         controllers: {
-          'api::page.page': {
-            find: { enabled: true, policy: '' },
-            findOne: { enabled: true, policy: '' },
-          },
-          'api::service.service': {
-            find: { enabled: true, policy: '' },
-            findOne: { enabled: true, policy: '' },
-          },
-          'api::product.product': {
-            find: { enabled: true, policy: '' },
-            findOne: { enabled: true, policy: '' },
-          },
-          'api::industry.industry': {
-            find: { enabled: true, policy: '' },
-            findOne: { enabled: true, policy: '' },
-          },
-          'api::certification.certification': {
-            find: { enabled: true, policy: '' },
-            findOne: { enabled: true, policy: '' },
-          },
-          'api::partner.partner': {
-            find: { enabled: true, policy: '' },
-            findOne: { enabled: true, policy: '' },
-          },
-          'api::post.post': {
-            find: { enabled: true, policy: '' },
-            findOne: { enabled: true, policy: '' },
-          },
-          'api::category.category': {
-            find: { enabled: true, policy: '' },
-            findOne: { enabled: true, policy: '' },
-          },
-          'api::tag.tag': {
+          [contentType]: {
             find: { enabled: true, policy: '' },
             findOne: { enabled: true, policy: '' },
           },
@@ -78,5 +46,10 @@ module.exports = async ({ strapi }) => {
       });
 
     console.log('✅ Public role permissions configured successfully');
+    
+    // Log the current permissions for debugging
+    console.log('🔍 Current permissions:', JSON.stringify(permissions, null, 2));
+  } else {
+    console.log('❌ Public role not found');
   }
 }; 

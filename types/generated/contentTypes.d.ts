@@ -440,6 +440,137 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCertificationCertification
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'certifications';
+  info: {
+    displayName: 'Certification';
+    pluralName: 'certifications';
+    singularName: 'certification';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    certificateFile: Schema.Attribute.Media;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::certification.certification'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    validFrom: Schema.Attribute.Date;
+    validTo: Schema.Attribute.Date;
+  };
+}
+
+export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
+  collectionName: 'industries';
+  info: {
+    displayName: 'Industry';
+    pluralName: 'industries';
+    singularName: 'industry';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::industry.industry'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    recommendedProducts: Schema.Attribute.JSON;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    useCases: Schema.Attribute.Component<'shared.use-case', true>;
+  };
+}
+
+export interface ApiPagePage extends Struct.SingleTypeSchema {
+  collectionName: 'pages';
+  info: {
+    displayName: 'Site Settings';
+    pluralName: 'pages';
+    singularName: 'page';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    address: Schema.Attribute.Component<'shared.address', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    defaultSeo: Schema.Attribute.Component<'shared.seo', false>;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'> &
+      Schema.Attribute.Private;
+    logo: Schema.Attribute.Media;
+    phone: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    schemaOrg: Schema.Attribute.Component<'shared.org', false>;
+    siteName: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'E-Sunrise Australia'>;
+    socials: Schema.Attribute.Component<'shared.social-link', true>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPartnerPartner extends Struct.CollectionTypeSchema {
+  collectionName: 'partners';
+  info: {
+    displayName: 'Partner';
+    pluralName: 'partners';
+    singularName: 'partner';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::partner.partner'
+    > &
+      Schema.Attribute.Private;
+    logo: Schema.Attribute.Media;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    quote: Schema.Attribute.Text;
+    type: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPostPost extends Struct.CollectionTypeSchema {
   collectionName: 'posts';
   info: {
@@ -451,6 +582,7 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    author: Schema.Attribute.String & Schema.Attribute.Required;
     body: Schema.Attribute.RichText;
     category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     cover: Schema.Attribute.Media;
@@ -462,8 +594,84 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::post.post'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiProductProduct extends Struct.CollectionTypeSchema {
+  collectionName: 'products';
+  info: {
+    displayName: 'Product';
+    pluralName: 'products';
+    singularName: 'product';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    badge: Schema.Attribute.String;
+    category: Schema.Attribute.String & Schema.Attribute.Required;
+    certifications: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    images: Schema.Attribute.Media<undefined, true>;
+    linkText: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'View Details'>;
+    linkUrl: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product.product'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    price: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    specs: Schema.Attribute.Component<'shared.product-specs', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiServiceService extends Struct.CollectionTypeSchema {
+  collectionName: 'services';
+  info: {
+    displayName: 'Service';
+    pluralName: 'services';
+    singularName: 'service';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ctaLabel: Schema.Attribute.String;
+    details: Schema.Attribute.RichText;
+    features: Schema.Attribute.Component<'shared.feature', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::service.service'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    summary: Schema.Attribute.Text & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1009,7 +1217,13 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::category.category': ApiCategoryCategory;
+      'api::certification.certification': ApiCertificationCertification;
+      'api::industry.industry': ApiIndustryIndustry;
+      'api::page.page': ApiPagePage;
+      'api::partner.partner': ApiPartnerPartner;
       'api::post.post': ApiPostPost;
+      'api::product.product': ApiProductProduct;
+      'api::service.service': ApiServiceService;
       'api::tag.tag': ApiTagTag;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

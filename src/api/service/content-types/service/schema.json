@@ -29,16 +29,16 @@
     },
     "features": {
       "type": "component",
-      "repeatable": true,
-      "component": "shared.feature"
+      "component": "shared.feature",
+      "repeatable": true
     },
     "ctaLabel": {
       "type": "string"
     },
     "seo": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.seo"
+      "component": "shared.seo",
+      "repeatable": false
     }
   }
-} 
+}

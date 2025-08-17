@@ -13,8 +13,8 @@
   "attributes": {
     "siteName": {
       "type": "string",
-      "required": true,
-      "default": "E-Sunrise Australia"
+      "default": "E-Sunrise Australia",
+      "required": true
     },
     "logo": {
       "type": "media",
@@ -31,23 +31,23 @@
     },
     "address": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.address"
+      "component": "shared.address",
+      "repeatable": false
     },
     "socials": {
       "type": "component",
-      "repeatable": true,
-      "component": "shared.social-link"
+      "component": "shared.social-link",
+      "repeatable": true
     },
     "defaultSeo": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.seo"
+      "component": "shared.seo",
+      "repeatable": false
     },
     "schemaOrg": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.org"
+      "component": "shared.org",
+      "repeatable": false
     }
   }
-} 
+}

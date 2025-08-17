@@ -35,9 +35,6 @@
     "body": {
       "type": "richtext"
     },
-    "publishedAt": {
-      "type": "datetime"
-    },
     "category": {
       "type": "relation",
       "relation": "manyToOne",
@@ -52,8 +49,8 @@
     },
     "seo": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.seo"
+      "component": "shared.seo",
+      "repeatable": false
     }
   }
 }

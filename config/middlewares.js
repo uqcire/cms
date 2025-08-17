@@ -9,22 +9,56 @@
           'connect-src': ["'self'", 'https:'],
           'img-src': ["'self'", 'data:', 'blob:', 'https:'],
           'media-src': ["'self'", 'data:', 'blob:', 'https:'],
+          'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+          'style-src': ["'self'", "'unsafe-inline'"],
+          'frame-src': ["'self'"],
+          'object-src': ["'none'"],
           upgradeInsecureRequests: null,
         },
       },
+      // Additional security headers
+      frameguard: false,
+      hsts: {
+        maxAge: 31536000,
+        includeSubDomains: true,
+        preload: true,
+      },
+      xssFilter: true,
+      poweredBy: false,
     },
   },
   {
     name: 'strapi::cors',
     config: {
       headers: '*',
-      origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:8801', 'https://dflm.com.au', 'https://*.onrender.com']
+      origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:8800', 'http://localhost:8801', 'https://dflm.com.au', 'https://*.onrender.com'],
+      credentials: true,
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+      exposedHeaders: ['X-Total-Count', 'X-Page-Count'],
     }
   },
   'strapi::poweredBy',
-  'strapi::logger',
+  {
+    name: 'strapi::logger',
+    config: {
+      level: 'info',
+      requests: true,
+      errors: true,
+    },
+  },
   'strapi::query',
-  'strapi::body',
+  {
+    name: 'strapi::body',
+    config: {
+      formLimit: '10mb',
+      jsonLimit: '10mb',
+      textLimit: '10mb',
+      formidable: {
+        maxFileSize: 10 * 1024 * 1024, // 10MB
+        allowedExtensions: ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.pdf', '.doc', '.docx'],
+      },
+    },
+  },
   'strapi::session',
   'strapi::favicon',
   'strapi::public',

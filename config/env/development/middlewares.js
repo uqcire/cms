@@ -1,4 +1,4 @@
-﻿module.exports = [
+module.exports = [
   'strapi::errors',
   {
     name: 'strapi::security',
@@ -6,23 +6,19 @@
       contentSecurityPolicy: {
         useDefaults: true,
         directives: {
-          'connect-src': ["'self'", 'https:'],
-          'img-src': ["'self'", 'data:', 'blob:', 'https:'],
-          'media-src': ["'self'", 'data:', 'blob:', 'https:'],
-          'script-src': ["'self'", "'unsafe-inline'"],
+          'connect-src': ["'self'", 'http:', 'https:'],
+          'img-src': ["'self'", 'data:', 'blob:', 'http:', 'https:'],
+          'media-src': ["'self'", 'data:', 'blob:', 'http:', 'https:'],
+          'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
           'style-src': ["'self'", "'unsafe-inline'"],
           'frame-src': ["'self'"],
           'object-src': ["'none'"],
           upgradeInsecureRequests: null,
         },
       },
-      // Production security headers
+      // Development-friendly security headers
       frameguard: false,
-      hsts: {
-        maxAge: 31536000,
-        includeSubDomains: true,
-        preload: true,
-      },
+      hsts: false, // Disabled in development
       xssFilter: true,
       poweredBy: false,
     },
@@ -31,7 +27,7 @@
     name: 'strapi::cors',
     config: {
       headers: '*',
-      origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:8801', 'https://dflm.com.au', 'https://*.onrender.com'],
+      origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:8800', 'http://localhost:8801', 'https://dflm.com.au', 'https://*.onrender.com'],
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
       exposedHeaders: ['X-Total-Count', 'X-Page-Count'],
@@ -41,8 +37,8 @@
   {
     name: 'strapi::logger',
     config: {
-      level: 'warn', // Less verbose in production
-      requests: false, // Disable request logging in production
+      level: 'debug', // More verbose in development
+      requests: true,
       errors: true,
     },
   },
@@ -62,4 +58,4 @@
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
-];
+]; 

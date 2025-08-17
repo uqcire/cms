@@ -30,8 +30,8 @@
     },
     "specs": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.product-specs"
+      "component": "shared.product-specs",
+      "repeatable": false
     },
     "certifications": {
       "type": "json"
@@ -60,8 +60,8 @@
     },
     "seo": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.seo"
+      "component": "shared.seo",
+      "repeatable": false
     }
   }
-} 
+}
