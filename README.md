@@ -1,4 +1,11 @@
-# 🚀 Getting started with Strapi
+# 🚀 E-Sunrise Australia Blog CMS
+
+Blog-only Strapi CMS for E-Sunrise Australia website. This CMS manages blog content including posts, categories, and tags while static pages are managed through code.
+
+## Content Types
+- **Posts**: Blog articles with categories, tags, and SEO metadata
+- **Categories**: Blog post categories for organization
+- **Tags**: Blog post tags for filtering and discovery
 
 Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
 

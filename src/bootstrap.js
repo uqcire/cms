@@ -8,14 +8,8 @@ module.exports = async ({ strapi }) => {
     const webhookService = strapi.service('api::webhook.webhook');
     
     if (webhookService) {
-      // Define content types for webhook events
+      // Define content types for webhook events (blog only)
       const webhookContentTypes = [
-        'api::page.page',
-        'api::service.service',
-        'api::product.product',
-        'api::industry.industry',
-        'api::certification.certification',
-        'api::partner.partner',
         'api::post.post',
         'api::category.category',
         'api::tag.tag',

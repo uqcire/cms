@@ -67,13 +67,7 @@ VERCEL_DEPLOY_HOOK_URL=https://api.vercel.com/v1/hooks/your-hook-id
    - **Events**: 
      - ✅ `entry.publish`
      - ✅ `entry.unpublish`
-   - **Content Types**: Select all content types that should trigger rebuilds:
-     - Page
-     - Service
-     - Product
-     - Industry
-     - Certification
-     - Partner
+   - **Content Types**: Select blog content types that should trigger rebuilds:
      - Post
      - Category
      - Tag
@@ -87,7 +81,7 @@ VERCEL_DEPLOY_HOOK_URL=https://api.vercel.com/v1/hooks/your-hook-id
 
 ### 4.1 Test Content Publishing
 1. Go to **Content Manager** in Strapi
-2. Create or edit a product/service/post
+2. Create or edit a blog post/category/tag
 3. Click **"Publish"**
 4. Check your Vercel dashboard - a new deployment should start automatically
 
@@ -139,10 +133,9 @@ webhook: {
     vercelDeployHook: env('VERCEL_DEPLOY_HOOK_URL'),
     events: ['entry.publish', 'entry.unpublish'],
     contentTypes: [
-      'api::page.page',
-      'api::service.service',
-      'api::product.product',
-      // ... other content types
+      'api::post.post',
+      'api::category.category',
+      'api::tag.tag',
     ],
   },
 },

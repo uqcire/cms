@@ -1,15 +1,15 @@
-# Strapi v5 API Configuration Guide
+# Strapi v5 API Configuration Guide (Blog-Only)
 
-This document outlines the updated API configuration for E-Sunrise Australia CMS using Strapi v5.21.0.
+This document outlines the updated API configuration for E-Sunrise Australia Blog CMS using Strapi v5.21.0.
 
 ## Overview
 
-The API configuration has been updated to include the latest Strapi v5 features and best practices for:
-- REST API configuration
-- GraphQL support
-- Rate limiting and security
-- Performance optimization
-- CORS and middleware configuration
+The API configuration has been optimized for blog-only content management with:
+- REST API configuration for blog content (posts, categories, tags)
+- GraphQL support for blog queries
+- Rate limiting and security optimized for blog usage
+- Performance optimization for blog content delivery
+- CORS and middleware configuration for blog API
 
 ## Configuration Files
 

@@ -22,14 +22,8 @@
       vercelDeployHook: env('VERCEL_DEPLOY_HOOK_URL'),
       // Webhook events to trigger deployments
       events: ['entry.publish', 'entry.unpublish'],
-      // Content types that should trigger rebuilds
+      // Content types that should trigger rebuilds (blog only)
       contentTypes: [
-        'api::page.page',
-        'api::service.service',
-        'api::product.product',
-        'api::industry.industry',
-        'api::certification.certification',
-        'api::partner.partner',
         'api::post.post',
         'api::category.category',
         'api::tag.tag',
